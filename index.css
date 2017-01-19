@@ -5,3 +5,9 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+.container {
+    width: 100%;
+    max-width: 380px;
+    margin: auto;
+}
