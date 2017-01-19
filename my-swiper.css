@@ -1,0 +1,32 @@
+.swiper {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    position: relative;
+}
+
+.swiper-list {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: -100%;
+}
+
+.swiper-list-enter {
+    right: 0;
+}
+
+.swiper-item {
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+.swiper-transition {
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -ms-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+}
