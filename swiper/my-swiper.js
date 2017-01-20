@@ -238,15 +238,11 @@ Vue.component('swiper', {
 
             var time = self.currentDrug.endTime - self.currentDrug.startTime;
 
-            console.log(time)
-
-            if(time <= 100){
-                self.click(self.currentIndex); //点击图片
-            }else if(time > 100 && time < 300){ //短时间滑动
-                if(self.currentLeft - self.currentDrug.currentX < 0){
-                    self.currentIndex = self.currentIndex + 1;  //左移，下一张
-                }else if(self.currentLeft - self.currentDrug.currentX > 0){
-                    self.currentIndex = self.currentIndex - 1; //右移，上一张
+            if(time < 300){ //短时间滑动
+                if(self.currentDrug.startX - self.currentDrug.endX < 0){
+                    self.currentIndex = self.currentIndex - 1;  //左移，下一张
+                }else if(self.currentDrug.startX - self.currentDrug.endX > 0){
+                    self.currentIndex = self.currentIndex + 1; //右移，上一张
                 }else{
                     self.click(self.currentIndex); //点击图片
                 }
