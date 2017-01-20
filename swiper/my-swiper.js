@@ -170,7 +170,7 @@ Vue.component('swiper', {
         //鼠标按下
         mouseStart: function (e) {
             var self = this;
-            //如果是触屏事件，且只允许单手操作
+            // 如果是鼠标事件
             if(e.type == 'mousedown'){
                 self.dragStart(e, e.clientX)
                 document.onmousemove = function (e) {self.mouseMove(e);}; //绑定全局鼠标移动事件
@@ -180,7 +180,7 @@ Vue.component('swiper', {
         //鼠标移动
         mouseMove: function (e) {
             var self = this;
-            //如果是触屏事件，且只允许单手操作
+            // 如果是鼠标事件
             if(e.type == 'mousemove'){
                 self.dragMove(e, e.clientX)
             }
@@ -188,7 +188,7 @@ Vue.component('swiper', {
         //鼠标提起
         mouseEnd: function (e) {
             var self = this;
-            //如果是触屏事件，且只允许单手操作
+            // 如果是鼠标事件
             if(e.type == 'mouseup'){
                 self.dragEnd(e, e.clientX);
                 document.onmousemove = function () {}; //清空全局鼠标移动事件
