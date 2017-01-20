@@ -259,6 +259,7 @@ Vue.component('swiper', {
             self.currentLeft = 0; //清空优先偏移数
 
         },
+        //点击图片
         click: function (index) {
             console.log("点击", index);
         }
