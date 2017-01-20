@@ -54,15 +54,17 @@ export default{
       currentSlides() {
           var self = this;
           var array = [];
-
-          array.push(self.slides[self.slides.length - 1]);
-
-          for (var i = 0; i < self.slides.length; i++) {
-              array.push(self.slides[i]);
+          if (self.slides.length > 1) {
+              array.push(self.slides[self.slides.length - 1]);
+              for (var i = 0; i < self.slides.length; i++) {
+                  array.push(self.slides[i]);
+              }
+              array.push(self.slides[0]);
+            } else {
+              self.options.autoPlay = false;
+              self.currentIndex = 0;
+              array = self.slides;
           }
-
-          array.push(self.slides[0]);
-
           return array;
       },
       // 轮播列表样式
@@ -120,7 +122,7 @@ export default{
       skipIndex(index) {
           var self = this;
           self.stopPlay();
-          self.currentIndex = index + 1;
+          self.currentIndex = self.options.autoPlay ? index + 1 : index;
           self.startPlay();
       },
       // 开始触屏
@@ -178,7 +180,7 @@ export default{
       // 开始拖拽
       dragStart(e, startX) {
           var self = this;
-          if (!self.currentTimeout) {
+          if (!self.currentTimeout && self.options.autoPlay) {
               var deviation = parseFloat(self.currentDeviation().replace(/px/g, ''));
               self.stopPlay(); // 恢复轮播
               self.currentDrug.currentX = deviation; // 当前偏移数
@@ -226,20 +228,22 @@ export default{
   watch: {
       currentIndex(val) { // 用于流畅过渡
           var self = this;
-          if (val === self.currentSlides.length - 1) { // 如果轮播到最后一个，自动切换到第一张图片
-              clearTimeout(self.currentTimeout);
-              self.currentTimeout = setTimeout(function () {
-                  self.currentStatus = 'normal';
-                  self.currentIndex = 1;
-                  self.currentTimeout = 0; // 清空当前id
-              }, 300);
-          } else if (val === 0) { // 如果轮播到第一个，自动切换到最后一张
-              clearTimeout(self.currentTimeout);
-              self.currentTimeout = setTimeout(function () {
-                  self.currentStatus = 'normal';
-                  self.currentIndex = self.currentSlides.length - 2;
-                  self.currentTimeout = 0; // 清空当前id
-              }, 300);
+          if (self.options.autoPlay) {
+              if (val === self.currentSlides.length - 1) { // 如果轮播到最后一个，自动切换到第一张图片
+                clearTimeout(self.currentTimeout);
+                self.currentTimeout = setTimeout(function () {
+                    self.currentStatus = 'normal';
+                    self.currentIndex = 1;
+                    self.currentTimeout = 0; // 清空当前id
+                }, 300);
+              } else if (val === 0) { // 如果轮播到第一个，自动切换到最后一张
+                  clearTimeout(self.currentTimeout);
+                  self.currentTimeout = setTimeout(function () {
+                      self.currentStatus = 'normal';
+                      self.currentIndex = self.currentSlides.length - 2;
+                      self.currentTimeout = 0; // 清空当前id
+                  }, 300);
+              }
           }
       }
   },
