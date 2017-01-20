@@ -145,7 +145,7 @@ Vue.component('swiper', {
 
             self.stopPlay();
 
-            self.currentIndex = index + 1;
+            self.currentIndex = self.options.autoPlay ? index + 1 : index;
 
             self.startPlay();
         },
